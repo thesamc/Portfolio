@@ -5,10 +5,7 @@ A modern, interactive portfolio website showcasing my web development projects a
 ## 🌟 Features
 
 - **Interactive Particle Background**: Dynamic particle system that responds to user interaction
-- **Dark/Light Mode Toggle**: Seamless theme switching for better user experience
-- **Smooth Animations**: 
   - Typing effect on the hero section
-  - Color transition animations
   - Hover effects on project cards
 - **Responsive Design**: Fully responsive layout that works across all device sizes
 - **Modern UI Components**:
