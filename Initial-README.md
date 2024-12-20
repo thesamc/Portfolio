@@ -64,7 +64,6 @@ I plan to add:
 - Dark/light theme toggle
 - Contact form functionality
 - More interactive features
-- Blog section
 - Additional project showcases
 
 ## Contact
