@@ -1,0 +1,1398 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sam Chutter's Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #1a1a1a;
+        --secondary: #252525;
+        --text: #f8f9fa;
+        --accent: #2472e8;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --nav-bg: rgba(26, 26, 26, 0.9);
+        --grid-color: rgba(36, 114, 232, 0.1);
+      }
+
+      html {
+        scroll-behavior: smooth;
+        height: 100%;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--primary);
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+        height: 100%;
+        position: relative;
+      }
+
+      section {
+        scroll-margin-top: 3rem; /* Adjusts space above sections when scrolling */
+      }
+
+      /* Background Animation */
+      .animated-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-image: linear-gradient(
+            var(--grid-color) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+        background-size: 50px 50px;
+        animation: scroll 20s linear infinite;
+      }
+
+      /* Navigation Styles */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1.5rem;
+        background: var(--nav-bg);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+      }
+
+      nav ul {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-button {
+        font-family: "JetBrains Mono", monospace;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        color: var(--text);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .nav-button:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        padding: 8rem 5% 2rem;
+        background: linear-gradient(
+          180deg,
+          var(--primary) 0%,
+          rgba(26, 26, 26, 0.8) 100%
+        );
+      }
+
+      .hero-content {
+        z-index: 1;
+        max-width: 600px;
+      }
+
+      .hero h1 {
+        font-family: "Montserrat", sans-serif;
+        font-size: clamp(3.5rem, 8vw, 7rem);
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(45deg, var(--accent), #42b883);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: titleReveal 1s ease-out;
+      }
+
+      .hero-description {
+        font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+        line-height: 1.7;
+        margin: 2rem 0;
+        opacity: 0.9;
+        max-width: 540px;
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 3rem;
+      }
+
+      .hero-image {
+        position: relative;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 1s ease-out;
+      }
+
+      .hero-image img {
+        width: 90%;
+        height: 80vh;
+        object-fit: cover;
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border: 3px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Typography */
+      .typing-text {
+        font-family: "JetBrains Mono", monospace;
+        font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        min-height: 2.5em;
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        border-left: 3px solid var(--accent);
+      }
+
+      .section-title {
+        font-family: "Montserrat", sans-serif;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        background: linear-gradient(45deg, var(--accent), #42b883);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+      }
+
+      .contact-card .email-address {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .contact-card:hover .email-address {
+        opacity: 1;
+      }
+
+      /* Layout Components */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+      }
+
+      /* Project Section */
+      .project-links {
+        margin-top: 1rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9rem;
+        opacity: 0.8;
+        text-align: right;
+      }
+
+      .project-links a {
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .project-links a:hover {
+        color: var(--accent);
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .project-card h3 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, var(--accent), #42b883);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        transition: transform 0.3s ease, background 0.5s ease;
+        background-size: 200% 200%;
+        background-position: 0% 0%;
+      }
+
+      .project-card:hover h3 {
+        transform: scale(1.05);
+        background: linear-gradient(45deg, #ff4e50, #f9d423);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        background-position: 100% 100%;
+      }
+
+      #about .project-card > div > div .project-card h3 {
+    transform: none !important;
+    background: linear-gradient(45deg, var(--accent), #42b883) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+#about .project-card > div > div .project-card:hover h3 {
+    transform: none !important;
+    background: linear-gradient(45deg, var(--accent), #42b883) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+      .project-image {
+        position: relative;
+        width: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+      }
+
+      .project-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+      
+      .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .project-card:hover .project-overlay {
+        opacity: 1;
+      }
+
+      .preview-button {
+        padding: 0.8rem 1.5rem;
+        background: var(--accent);
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+      }
+
+      .project-card:hover .preview-button {
+        transform: translateY(0);
+      }
+
+      /* Tech Stack and Badges */
+      .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin: 1rem 0;
+      }
+
+      .tech-tag {
+        font-family: "JetBrains Mono", monospace;
+        background: var(--card-bg);
+        padding: 1rem 2rem;
+        border-radius: 100px;
+        color: var(--accent);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .project-badge {
+        font-family: "JetBrains Mono", monospace;
+        background: var(--card-bg);
+        padding: 0.4rem 0.8rem;
+        border-radius: 100px;
+        font-size: 0.9rem;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Contact Section */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        text-align: center;
+      }
+
+      .contact-card {
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 12px;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .contact-link {
+        text-decoration: none;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .contact-link:hover {
+        opacity: 0.9;
+        transform: scale(1.05);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu-button {
+        display: none;
+        background: var(--card-bg);
+        border: none;
+        padding: 0.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--text);
+        font-size: 1.5rem;
+      }
+
+      /* Media Queries */
+      @media (max-width: 768px) {
+        .hero {
+          display: flex;
+          flex-direction: column;
+          min-height: auto;
+          padding: 5rem 1rem 2rem;
+        }
+
+        .top-button {
+    display: none !important;
+  }
+
+        .hero-content {
+          width: 100%;
+          margin-bottom: 0.5rem;
+        }
+
+        .hero-image {
+          width: 100%;
+          margin-top: 0.5rem;
+        }
+
+        .hero-image img {
+          width: 100%;
+          height: auto;
+          max-height: 50vh;
+          object-fit: cover;
+        }
+
+        .hero-cta {
+          margin-top: 2rem;
+        }
+
+        .mobile-menu-button {
+          display: block;
+          position: fixed;
+          right: 1rem;
+          top: 1rem;
+          z-index: 1003;
+        }
+
+        nav ul {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: auto;
+          background: rgba(26, 26, 26, 0.95);
+          padding: 4rem 1.5rem 2rem;
+          gap: 0.75rem;
+          transform: translateY(-100%);
+          transition: transform 0.3s ease-in-out;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          justify-items: center;
+          max-height: 100vh;
+          overflow-y: auto;
+        }
+
+        .nav-button {
+          width: 100%;
+          text-align: center;
+          padding: 0.4rem 1rem;
+          font-size: 0.7rem;
+        }
+
+        nav ul.show {
+          display: grid;
+          transform: translateY(0);
+        }
+
+        .container {
+          padding: 2rem 1rem;
+        }
+
+        #about .project-card > div {
+          grid-template-columns: 1fr !important;
+          gap: 1rem !important;
+        }
+
+        #about .project-card > div > div:first-child {
+          order: 2;
+        }
+
+        #about .project-card > div > div:last-child {
+          order: 1;
+        }
+
+        #about .project-card .project-card {
+          background: var(--secondary) !important;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+        }
+        .top-button {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        #about .project-card > div > div .project-card {
+          background: var(--secondary) !important;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+      }
+
+      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        #about .project-card > div > div:last-child .project-card {
+          background: var(--secondary) !important;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+        }
+      }
+      /* Animations */
+      @keyframes scroll {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(50px, 50px);
+        }
+      }
+
+      @keyframes titleReveal {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .progress-container {
+        width: 100%;
+        margin: 1rem 0 0.5rem;
+      }
+
+      .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.25rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 9999px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), #42b883);
+        border-radius: 9999px;
+        transition: width 0.5s ease-out;
+      }
+
+      .progress-status {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 0.25rem;
+      }
+
+      /* Filter Styles */
+.filter-container {
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  max-width: 800px;
+}
+
+.filter-button {
+  font-family: "JetBrains Mono", monospace;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.filter-button.active {
+  background: var(--accent);
+  color: white;
+}
+
+.project-card {
+  transition: all 0.3s ease;
+}
+
+.project-card.hidden {
+  display: none;
+}
+
+.project-card.visible {
+  animation: filterFadeIn 0.5s ease forwards;
+}
+
+@keyframes filterFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+      /* Testimonial Styles */
+.testimonial-highlight {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+  background: linear-gradient(45deg, var(--accent), #42b883);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.testimonial-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.testimonial-author {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+}
+
+.testimonial-author h3 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.testimonial-author p {
+  opacity: 0.7;
+  font-size: 1rem;
+}
+
+#testimonials .project-card h3 {
+  transform: none !important;
+  background: linear-gradient(45deg, var(--accent), #42b883) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+#testimonials .project-card:hover h3 {
+  transform: none !important;
+  background: linear-gradient(45deg, var(--accent), #42b883) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.rating {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.star {
+  color: #FFD700;
+  font-size: 1.2rem;
+}
+
+.testimonial-date {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.branding {
+  background: linear-gradient(180deg, var(--secondary), var(--primary));
+  padding: 4rem 2rem;
+  color: var(--text);
+  text-align: center;
+}
+
+.branding .section-title {
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, var(--accent), #42b883);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.branding button.nav-button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.branding button.nav-button:hover {
+  transform: translateY(-3px);
+  background: #42b883;
+}
+
+    </style>
+  </head>
+
+  <body>
+    <section class="top">
+      <div class="animated-bg"></div>
+    </section>
+
+    <!-- Navbar Section -->
+    <nav>
+      <button class="mobile-menu-button">☰</button>
+      <ul id="navMenu">
+        <li>
+          <button
+            class="nav-button top-button"
+            onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+          >
+            Home
+          </button>
+        </li>
+        <li>
+          <button class="nav-button" onclick="scrollToSection('about')">
+            About
+          </button>
+        </li>
+        <li>
+          <button class="nav-button" onclick="scrollToSection('projects')">
+            Projects
+          </button>
+        </li>
+        <li>
+            <button class="nav-button top-button" onclick="scrollToSection('testimonials')">
+              Testimonials
+            </button>
+        </li>
+        <li>
+          <button class="nav-button" onclick="scrollToSection('skills')">
+            Digital Toolkit
+          </button>
+        </li>
+        <li>
+          <button class="nav-button top-button" onclick="scrollToSection('branding-process')">
+            Branding Process
+          </button>
+        </li>
+        <li>
+          <button class="nav-button" onclick="scrollToSection('contact')">
+            Contact
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Samuel Chutter</h1>
+        <div class="typing-text" id="typingText"></div>
+        <div class="hero-cta">
+          <button class="nav-button" onclick="scrollToSection('contact')">
+            Get in Touch
+          </button>
+          <button class="nav-button" onclick="scrollToSection('projects')">
+            View Projects
+          </button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="img/headshot.psd" alt="Sam Chutter" />
+      </div>
+    </section>
+
+    <!--About Section-->
+    <section id="about" class="projects">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="project-card">
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 2rem;
+              align-items: center;
+            "
+          >
+            <div>
+              <p style="margin-bottom: 1.5rem">
+                Hello! My name is <span class="myname">Sam Chutter</span>, and
+                I’m a senior in the Digital Media program at Texas State
+                University, working toward a career as a web developer. I’ve
+                studied web design extensively during college, where I’ve honed
+                my skills in creating functional and visually engaging websites.
+                My goal is to blend technical expertise with creative design to
+                build digital experiences that stand out.
+              </p>
+              <p style="margin-bottom: 1.5rem">
+                I grew up in Spring, Texas, where my curiosity and passion for
+                learning began. Beyond academics, I’m a passionate musician—I
+                play guitar in a rock band, which gives me an outlet for
+                creativity and connection. I’m also an avid cook who loves
+                experimenting in the kitchen, snapping photos of my dishes, and
+                sharing them with others.
+              </p>
+              <p>
+                Fitness is another cornerstone in my life that helps me stay
+                focused and full of energy. I am committed to living healthy and
+                pushing my physical limits, which goes hand in hand with my love
+                for cooking and nutrition. These interests fuel my creativity in
+                web development, cooking, and life in general. As I approach
+                graduation, I am excited to bring my skill, passion, and unique
+                perspective to projects that leave a lasting impression.
+              </p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1rem">
+              <div class="project-card" style="height: fit-content">
+                <h3 style="margin-bottom: 1rem; color: var(--accent)">
+                  Education
+                </h3>
+                <p><strong>Texas State University</strong></p>
+                <p style="margin-bottom: 0.5rem">
+                  B.S. Digital Media Innovation
+                </p>
+                <p>Expected Graduation: June, 2025</p>
+              </div>
+              <div class="project-card" style="height: fit-content">
+                <h3 style="margin-bottom: 1rem; color: var(--accent)">
+                  Interests
+                </h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem">
+                  <span class="project-badge">UI/UX Design</span>
+                  <span class="project-badge">Web App Development</span>
+                  <span class="project-badge">Social Media Management</span>
+                  <span class="project-badge">Visual Design</span>
+                  <span class="project-badge">Drawing</span>
+                  <span class="project-badge">Cooking</span>
+                  <span class="project-badge">Baking</span>
+                  <span class="project-badge">Bartending</span>
+                  <span class="project-badge">Fitness</span>
+                  <span class="project-badge">Disc golf</span>
+                  <span class="project-badge">Hiking</span>
+                  <span class="project-badge">Botany</span>
+                  <span class="project-badge">Guitar</span>
+                  <span class="project-badge">Digital Music Production</span>
+                  <span class="project-badge">World travel</span>
+                  <span class="project-badge">International Cuisine</span>
+                  <span class="project-badge">Cultural Anthropology</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+      <div class="container">
+        <h2 class="section-title">My Projects</h2>
+        <div class="filter-container">
+            <button class="filter-button active" data-filter="all">All Projects</button>
+            <button class="filter-button" data-filter="data">Dataset</button>
+            <button class="filter-button" data-filter="enhanced">AI-Enhanced</button>
+            <button class="filter-button" data-filter="commissioned">Commissions</button>
+          </div>
+        <div class="project-grid">
+          <!-- Project 1 -->
+          <div class="project-card" data-category="enhanced">
+            <div class="project-image">
+              <img src="img/feedforward.png" alt="FeedForward Screenshot" />
+              <div class="project-overlay">
+                <p>(Under development)</p>
+              </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-header">
+                  <span>Development Progress</span>
+                  <span>40%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 40%"></div>
+                </div>
+              </div>
+            <h3>FeedForward</h3>
+            <p>
+              A web app that fosters community engagement and supports those in need. It serves as a centralized hub for volunteering and donations, connecting with volunteer organizations, accessing real-time inventory of local pantries, and applying for volunteer positions.
+            </p>
+            <div class="tech-stack">
+              <span class="project-badge">HTML</span>
+              <span class="project-badge">JavaScript</span>
+            </div>
+            <div class="project-links">
+              <a href="https://feedforward.samchutter.com" target="_blank"
+                >View preview →</a
+              >
+            </div>
+          </div>
+          <!-- Project 1 -->
+          <div class="project-card" data-category="enhanced">
+            <div class="project-image">
+              <img src="img/pp.png" alt="PedalPath Screenshot" />
+              <div class="project-overlay">
+                <p>(Under development)</p>
+              </div>
+            </div>
+            <div class="progress-container">
+              <div class="progress-header">
+                <span>Development Progress</span>
+                <span>70%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 70%"></div>
+              </div>
+            </div>
+            <h3>PedalPath</h3>
+            <p>
+              PedalPath is a comprehensive pedalboard planning tool that allows users to design, learn, and share their perfect pedalboard setup through an intuitive interface with clean design, drag-and-drop functionality, preset configurations, and real-time feedback.
+            </p>
+            <div class="tech-stack">
+              <span class="project-badge">Bootstrap</span>
+              <span class="project-badge">HTML</span>
+              <span class="project-badge">CSS</span>
+            </div>
+            <div class="project-links">
+              <a href="https://pedalpath.samchutter.com" target="_blank"
+              >View preview →</a
+            >
+            </div>
+          </div>
+          <!-- Project 2 -->
+          <div class="project-card" data-category="commissioned">
+            <div class="project-image">
+              <img src="img/nest.jpg" alt="Nest Counseling Screenshot" />
+              <div class="project-overlay">
+                <a
+                  href="https://nest-counseling.samchutter.com"
+                  class="preview-button"
+                  target="_blank"
+                  >View live</a
+                >
+              </div>
+            </div>
+            <h3>Nest Counseling</h3>
+            <p>
+              A commissioned therapy practice website with clean design, scroll effects, and streamlined navigation. Built with semantic HTML, CSS animations, and Bootstrap 5 to create an accessible space for connecting clients with counselors.
+            </p>
+            <div class="tech-stack">
+              <span class="project-badge">Bootstrap</span>
+              <span class="project-badge">HTML</span>
+              <span class="project-badge">CSS</span>
+            </div>
+            <div class="project-links">
+              <a href="https://nest-counseling.com" target="_blank"
+                >View live →</a
+              >
+            </div>
+          </div>
+          <!-- Project 3 -->
+          <div class="project-card" data-category="enhanced">
+            <div class="project-image">
+              <img src="img/paws.png" alt="Paws on Tour Screenshot" />
+              <div class="project-overlay">
+                <a
+                  href="https://pawsonttour.samchutter.com"
+                  class="preview-button"
+                  target="_blank"
+                  >View live</a
+                >
+              </div>
+            </div>
+            <h3>Paws on Tour</h3>
+            <p>
+              A sophisticated Vue.js-powered campus exploration platform
+              featuring interactive mapping, dynamic filtering, and
+              comprehensive wayfinding for Texas State University landmarks.
+            </p>
+            <div class="tech-stack">
+              <span class="project-badge">Vue.js</span>
+              <span class="project-badge">HTML</span>
+              <span class="project-badge">CSS</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/thesamc/Paws-On-Tour" target="_blank"
+                >View on GitHub →</a
+              >
+            </div>
+          </div>
+          <!-- Project 4 -->
+          <div class="project-card" data-category="enhanced">
+            <div class="project-image">
+              <img src="img/bandsite.png" alt="Blog Screenshot" />
+              <div class="project-overlay">
+                <p>(Under development)</p>
+              </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-header">
+                  <span>Development Progress</span>
+                  <span>85%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 85%"></div>
+                </div>
+              </div>
+            <h3>RehearsalRoom</h3>
+            <p>
+              Modern band management app using HTML, Tailwind, and vanilla JS to
+              track rehearsal schedules, setlists, and notes with local storage.
+            </p>
+            <div class="tech-stack">
+              <span class="project-badge">Local storage API</span>
+              <span class="project-badge">HTML</span>
+              <span class="project-badge">JavaScript</span>
+            </div>
+            <div class="project-links">
+              <a href="https://rehearsalroom.samchutter.com" target="_blank"
+                >View preview →</a
+              >
+            </div>
+          </div>
+          <!-- Project 5 -->
+          <div class="project-card" data-category="enhanced">
+            <div class="project-image">
+              <img src="img/dev.png" alt="Blog Screenshot" />
+              <div class="project-overlay">
+                <a
+                  href="https://devjourney.samchutter.com"
+                  class="preview-button"
+                  target="_blank"
+                  >View live</a
+                >
+              </div>
+            </div>
+            <h3>DevJourney</h3>
+            <p>
+              A dynamic web development blog featuring a neon cyberpunk
+              aesthetic, responsive grid layout, and smooth animations. Built
+              with modern CSS including gradients, transitions, and hover
+              effects.
+            </p>
+            <div class="tech-stack">
+              <span class="project-badge">JavaScript</span>
+              <span class="project-badge">Responsive Design</span>
+            </div>
+            <div class="project-links">
+              <a href="https://devjourney.samchutter.com" target="_blank"
+                >View live →</a
+              >
+            </div>
+          </div>
+          <!-- Project 7 -->
+          <div class="project-card" data-category="enhanced">
+            <div class="project-image">
+              <img src="img/portion.png" alt="Portion Wizard Screenshot" />
+              <div class="project-overlay">
+                <a
+                href="https://portionwizard.samchutter.com"
+                class="preview-button"
+                target="_blank"
+                >View live</a
+              >
+              </div>
+            </div>
+            <h3>Portion Wizard</h3>
+            <p>
+              Turn any recipe into the perfect size with this fun retro-styled
+              calculator. Scale ingredients up or down, sort your shopping list,
+              and export your recipe with just a click.
+            </p>
+            <div class="tech-stack">
+              <span class="project-badge">HTML</span>
+              <span class="project-badge">JavaScript</span>
+              <span class="project-badge">Responsive Design</span>
+            </div>
+            <div class="project-links">
+              <a href="https://www.portionwizard.samchutter.com" target="_blank"
+                >View live →</a
+              >
+            </div>
+          </div>
+          <!-- Project 8 -->
+          <div class="project-card" data-category="data">
+            <div class="project-image">
+              <img src="img/data.png" alt="Vue.js Chart Project" />
+              <div class="project-overlay">
+                <a
+                  href="https://data.samchutter.com"
+                  class="preview-button"
+                  target="_blank"
+                  >View live</a
+                >
+              </div>
+            </div>
+            <h3>Vue.js Charts</h3>
+            <p>
+              Interactive data visualization dashboard for EcoFuture Initiative,
+              featuring color-coded charts tracking donations, expenses, and
+              environmental project impacts over time.
+            </p>
+            <div class="tech-stack">
+              <span class="project-badge">Vue.js</span>
+              <span class="project-badge">JavaScript</span>
+              <span class="project-badge">Responsive Design</span>
+            </div>
+            <div class="project-links">
+              <a href="https://data.samchutter.com" target="_blank"
+                >View live →</a
+              >
+            </div>
+          </div>
+          <!-- Project 6 -->
+          <div class="project-card" data-category="enhanced">
+            <div class="project-image">
+              <img src="img/menu.png" alt="Sam's Menu Screenshot" />
+              <div class="project-overlay">
+                <a
+                  href="https://samsmenu.samchutter.com"
+                  class="preview-button"
+                  target="_blank"
+                  >View live</a
+                >
+              </div>
+            </div>
+            <h3>Sam's Menu</h3>
+            <p>
+              A recipe-sharing web app with dynamic theme switching, card-flip
+              animations, and responsive design. Built with HTML, CSS variables,
+              Bootstrap 5, and vanilla JavaScript.
+            </p>
+            <div class="tech-stack">
+              <span class="project-badge">Bootstrap</span>
+              <span class="project-badge">Responsive Design</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/thesamc/sams-menu" target="_blank"
+                >View on GitHub →</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   <!-- Testimonials Section -->
+<section id="testimonials" class="projects">
+    <div class="container">
+      <h2 class="section-title">Client Testimonials</h2>
+      <div class="project-grid">
+        <!-- Testimonial 1 -->
+        <div class="project-card">
+          <div class="rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <div class="testimonial-highlight">
+            "Quick turnaround time, extremely professional"
+          </div>
+          <p class="testimonial-text">
+            "Sam did a great job with my website. The turnaround time was quick and he was extremely professional. I'd recommend Sam and his work to any small business owner."
+          </p>
+          <div class="testimonial-author">
+            <h3>Megan E.</h3>
+            <p>Nest Counseling</p>
+            <span class="testimonial-date">December, 2024</span>
+          </div>
+          <div class="project-links">
+            <a href="https://nest-counseling.com" target="_blank">View live →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+    <!-- Digital Toolkit Section -->
+    <section id="skills" class="projects">
+      <div class="container">
+        <h2 class="section-title">Digital Toolkit</h2>
+        <div class="tech-stack">
+          <span class="tech-tag">UI/UX Design</span>
+          <span class="tech-tag">UX Prototyping</span>
+          <span class="tech-tag">Figma</span>
+
+          <!-- Core Web Technologies -->
+          <span class="tech-tag">HTML5</span>
+          <span class="tech-tag">CSS3</span>
+          <span class="tech-tag">JavaScript</span>
+
+          <!-- Frontend Frameworks/Libraries -->
+          <span class="tech-tag">Vue.js</span>
+          <span class="tech-tag">Bootstrap</span>
+          <span class="tech-tag">Responsive Design</span>
+          <span class="tech-tag">AI Boilerplate Generation</span>
+
+          <!-- Development & Deployment -->
+          <span class="tech-tag">GitHub</span>
+          <span class="tech-tag">Web Hosting</span>
+          <span class="tech-tag">Domain Management</span>
+        </div>
+      </div>
+    </section>
+
+    <!--Branding Process Section-->
+    <section id="branding-process" class="projects">
+      <div class="container">
+        <h2 class="section-title">Why Not Use AI?</h2>
+        <div class="project-card" style="margin: 2rem auto; max-width: 800px;">
+          <div style="padding: 1.5rem;">
+            <h3 
+              style="
+                font-family: 'Montserrat', sans-serif; 
+                font-size: 1.8rem; 
+                margin-bottom: 1rem; 
+                background: linear-gradient(45deg, var(--accent), #42b883); 
+                -webkit-background-clip: text; 
+                -webkit-text-fill-color: transparent;"
+            >
+              Efficiency Meets Understanding
+            </h3>
+            <p style="margin-bottom: 1.5rem;">
+              Using AI as a starting point is an incredible way to streamline development. It provides a solid foundation, accelerates workflows, and allows more time for innovation and personalization. But while AI offers powerful tools, it’s essential to go beyond simply applying the code.
+            </p>
+            <p style="margin-bottom: 1.5rem;">
+              To truly excel, you need to understand what the code means, how it works, and how to refine it. That’s where the magic happens—transforming an AI boilerplate into something uniquely yours, while maintaining full control over its functionality and purpose.
+            </p>
+            <div style="text-align: center;">
+              <a 
+                href="https://www.compilechef.samchutter.com" 
+                target="_blank" 
+                class="nav-button" 
+                style="font-size: 1.1rem; padding: 1rem 2rem; display: inline-block;"
+              >
+                Learn More About My AI Workflow
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container">
+      <h2 class="section-title">Let's Connect</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <a href="mailto:samcwebdev@gmail.com" class="contact-link">
+            <span>📧</span>
+            Contact via Email
+          </a>
+          <p class="email-address">samcwebdev@gmail.com</p>
+        </div>
+        <div class="contact-card">
+          <a
+            href="https://www.linkedin.com/in/samuel-chutter/"
+            class="contact-link"
+            target="_blank"
+          >
+            <span>💼</span> LinkedIn
+          </a>
+        </div>
+        <div class="contact-card">
+          <a
+            href="https://github.com/thesamc"
+            class="contact-link"
+            target="_blank"
+          >
+            <span>💻</span> GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Mobile menu toggle
+      document
+        .querySelector(".mobile-menu-button")
+        .addEventListener("click", (e) => {
+          e.stopPropagation();
+          const menu = document.getElementById("navMenu");
+          menu.style.display = "flex";
+          requestAnimationFrame(() => {
+            menu.classList.toggle("show");
+          });
+        });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        const menu = document.getElementById("navMenu");
+        const mobileButton = document.querySelector(".mobile-menu-button");
+        if (!menu.contains(e.target) && !mobileButton.contains(e.target)) {
+          menu.classList.remove("show");
+        }
+      });
+
+      // Smooth scroll function
+      function scrollToSection(sectionId) {
+        document
+          .getElementById(sectionId)
+          .scrollIntoView({ behavior: "smooth" });
+      }
+
+      // Typing effect
+      const text = "Web Developer";
+      const typingText = document.getElementById("typingText");
+      let charIndex = 0;
+
+      function typeText() {
+        if (charIndex < text.length) {
+          typingText.textContent = text.substring(0, charIndex + 1);
+          charIndex++;
+          setTimeout(typeText, 100);
+        } else {
+          typingText.classList.add("done");
+        }
+      }
+
+      // Start typing animation after page load
+      window.addEventListener("load", () => {
+        setTimeout(typeText, 1000);
+      });
+
+      // Close mobile menu when clicking nav items
+      document.querySelectorAll(".nav-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.getElementById("navMenu").classList.remove("show");
+        });
+      });
+      // Project filtering
+      document.addEventListener('DOMContentLoaded', () => {
+  const filterButtons = document.querySelectorAll('.filter-button');
+  // Only select project cards within the projects section
+  const projects = document.querySelector('#projects').querySelectorAll('.project-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const filterValue = button.getAttribute('data-filter');
+
+      projects.forEach(project => {
+        project.classList.remove('visible');
+        
+        // Get categories and handle null case
+        const categories = project.getAttribute('data-category') || '';
+        
+        if (filterValue === 'all' || categories.includes(filterValue)) {
+          project.classList.remove('hidden');
+          setTimeout(() => {
+            project.classList.add('visible');
+          }, 50);
+        } else {
+          project.classList.add('hidden');
+        }
+      });
+    });
+  });
+});
+    </script>
+  </body>
+</html>
+
+  </body>
+</html>
