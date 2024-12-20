@@ -15,7 +15,7 @@ This is my portfolio website built from scratch using HTML, CSS, and vanilla Jav
 - HTML5
 - CSS3
 - JavaScript
-- No frameworks or libraries
+- No frameworks or libraries (yet)
 
 ## Project Structure
 
